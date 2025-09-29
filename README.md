@@ -66,30 +66,24 @@ Each token contains:
 **createTokenStream(regex)**
 
 ```java
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+public ArrayList<Token> createTokenStream(String regex) {
+	boolean inBracket = false;
+	ArrayList<Token> tokenStream = new ArrayList<>();
 
-public class RegexMatches {
-    public static void main(String args[]) {
+	for(int i = 0; i < regex.length(); i++){
+		String lexeme = String.valueOf(regex.charAt(i));
+		if(lexeme.equals("[")) inBracket = true;
 
-        // String to be scanned to find the pattern.
-        String line = "This order was placed for QT3000! OK?";
-        String pattern = "(.*)(\\d+)(.*)";
+		Token prevToken = tokenStream.size() == 0 ? null : tokenStream.get(tokenStream.size() -1);
+		Token newToken = new Token(lexeme, i, classifyToken(prevToken, lexeme, inBracket));
+		tokenStream.add(newToken);
 
-        // Create a Pattern object
-        Pattern r = Pattern.compile(pattern);
+		if(lexeme.equals("]")) inBracket = false;
+	}
 
-        // Now create matcher object.
-        Matcher m = r.matcher(line);
-        if (m.find()) {
-            System.out.println("Found value: " + m.group(0));
-            System.out.println("Found value: " + m.group(1));
-            System.out.println("Found value: " + m.group(2));
-        } else {
-            System.out.println("NO MATCH");
-        }
-    }
+	return tokenStream;
 }
+
 ```
 
 **purpose**
