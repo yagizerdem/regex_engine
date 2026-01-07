@@ -599,12 +599,6 @@ Performs an **exact match** check — the entire input string must match the giv
 - If `nfa.final_state ∈ currentStates`, accept.
 - Otherwise, reject.
 
-#### Parameters
-
-| Name      | Type     | Description                         |
-| --------- | -------- | ----------------------------------- | ------- |
-| `regex`   | `String` | The regular expression (e.g., `"a(b | c)\*"`) |
-| `pattern` | `String` | The input string (e.g., `"abcc"`)   |
 
 #### Returns
 
